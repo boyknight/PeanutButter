@@ -2,15 +2,20 @@
 
 import tornado.ioloop
 import tornado.web
-import tornado
+import tornado.httputil
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world")
 
 class RegisterHandler(tornado.web.RequestHandler):
+
+    def get(self):
+        self.set_status(404)
+        self.finish()
+
     def post(self):
-        self.write(self.request)
+        self.write(self.request.body.decode('utf-8'))
 
 def make_app():
     return tornado.web.Application([
