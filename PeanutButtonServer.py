@@ -4,9 +4,14 @@ import tornado.ioloop
 import tornado.web
 import tornado.httputil
 
+remote_ip = None
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world")
+        if remote_ip is None:
+            self.write("register first")
+        else:
+            self.redirect(remote_ip)
 
 class RegisterHandler(tornado.web.RequestHandler):
 
@@ -15,7 +20,8 @@ class RegisterHandler(tornado.web.RequestHandler):
         self.finish()
 
     def post(self):
-        self.write(self.request.remote_ip)
+        remote_ip = self.request.remote_ip
+        self.write("OK")
 
 def make_app():
     return tornado.web.Application([
