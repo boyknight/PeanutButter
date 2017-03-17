@@ -15,7 +15,7 @@ class RegisterHandler(tornado.web.RequestHandler):
         self.finish()
 
     def post(self):
-        self.write(self.request.body.decode('utf-8'))
+        self.write(self.request.remote_ip)
 
 def make_app():
     return tornado.web.Application([
