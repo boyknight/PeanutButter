@@ -11,7 +11,7 @@ class MainHandler(tornado.web.RequestHandler):
         if remote_ip is None:
             self.write("register first")
         else:
-            self.redirect(remote_ip)
+            self.redirect("http://{}".format(remote_ip))
 
 class RegisterHandler(tornado.web.RequestHandler):
 
@@ -20,6 +20,7 @@ class RegisterHandler(tornado.web.RequestHandler):
         self.finish()
 
     def post(self):
+        global remote_ip
         remote_ip = self.request.remote_ip
         self.write("OK")
 
