@@ -22,7 +22,7 @@ class RegisterHandler(tornado.web.RequestHandler):
     def post(self):
         global remote_ip
         remote_ip = self.request.remote_ip
-        self.write("OK")
+        self.write("Your IP: {}".format(remote_ip))
 
 def make_app():
     return tornado.web.Application([
